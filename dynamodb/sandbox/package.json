@@ -1,0 +1,16 @@
+{
+  "name": "sandbox",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node src/index.js"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1026.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.2.0"
+  }
+}
