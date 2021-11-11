@@ -7,13 +7,14 @@ import {
   updateItemConditionallyOrCreate,
   upsertItemAsync,
 } from '../utils/item-write-ops.js';
-import { TD_NOTES_SDK_TABLE } from '../constants.js';
+import { TD_NOTES_SDK_TABLE, TD_NOTES_TEST_TABLE } from '../constants.js';
 import {
   queryItems,
   batchGetItemsByKey,
   getItemByKey,
   scanItems,
 } from '../utils/item-read-ops.js';
+import { scanItemsWithPagination } from '../utils/pagination.js';
 
 function upsertNote(note) {
   upsertItem(TD_NOTES_SDK_TABLE, note);
@@ -93,6 +94,13 @@ async function scanNotesByContent(content) {
   });
 }
 
+async function scanNotesWithPagination(lastEvaluatedKey) {
+  return await scanItemsWithPagination(TD_NOTES_TEST_TABLE, {
+    lastEvaluatedKey,
+    limit: 3,
+  });
+}
+
 export default {
   upsertNote,
   upsertNoteAsync,
@@ -105,4 +113,5 @@ export default {
   getNotesByKeys,
   queryNotesByUserId,
   scanNotesByContent,
+  scanNotesWithPagination,
 };
