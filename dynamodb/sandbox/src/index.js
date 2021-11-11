@@ -1,4 +1,5 @@
 import { TD_NOTES_SDK_TABLE, TD_NOTES_TEST_TABLE } from './constants.js';
+import { square } from './lambda/lambda-exec.js';
 import Note from './notes/notes-ops.js';
 import { batchInsertItems } from './utils/item-write-ops.js';
 import Table from './utils/table-ops.js';
@@ -168,24 +169,26 @@ const sampleTitleAndContent = {
 
 // populateTestTable();
 
-async function paginateTestTableNotes() {
-  let lastEvaluatedKey;
+// async function paginateTestTableNotes() {
+//   let lastEvaluatedKey;
 
-  while (true) {
-    const { items, lastEvaluatedKey: lastKey } =
-      await Note.scanNotesWithPagination(lastEvaluatedKey);
+//   while (true) {
+//     const { items, lastEvaluatedKey: lastKey } =
+//       await Note.scanNotesWithPagination(lastEvaluatedKey);
 
-    lastEvaluatedKey = lastKey;
+//     lastEvaluatedKey = lastKey;
 
-    console.log({ items });
+//     console.log({ items });
 
-    // Delay for 2 seconds
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+//     // Delay for 2 seconds
+//     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    if (!lastEvaluatedKey) break;
-  }
+//     if (!lastEvaluatedKey) break;
+//   }
 
-  console.log('Done');
-}
+//   console.log('Done');
+// }
 
-paginateTestTableNotes();
+// paginateTestTableNotes();
+
+square({ number: 5 });
