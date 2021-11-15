@@ -1,0 +1,9 @@
+{
+  "name": "lambda-auth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "jwt-decode": "^3.1.2"
+  }
+}
