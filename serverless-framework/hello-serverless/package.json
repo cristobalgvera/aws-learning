@@ -1,0 +1,9 @@
+{
+  "name": "hello-serverless",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "serverless-offline": "^8.2.0"
+  }
+}

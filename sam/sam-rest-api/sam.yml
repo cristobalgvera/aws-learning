@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'SAM Rest API
+
+  Rest API created using SAM CLI
+
+  '
+Globals:
+  Function:
+    Runtime: nodejs14.x
+    MemorySize: 128
+    Timeout: 5
+    Environment:
+      Variables:
+        TABLE_NAME:
+          Ref: Table
+Resources:
+  Table:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Type: String
+        Name: userId
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+  GetUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/get.handler
+      Policies: AmazonDynamoDBReadOnlyAccess
+      Events:
+        GetUser:
+          Type: Api
+          Properties:
+            Method: GET
+            Path: /users/{userId}
+      CodeUri: s3://sam-learning/5f603ee0c128cfe22ec5d642e217f70b
+  PostUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/post.handler
+      Policies: AmazonDynamoDBFullAccess
+      Events:
+        GetUser:
+          Type: Api
+          Properties:
+            Method: POST
+            Path: /users/{userId}
+      CodeUri: s3://sam-learning/5f603ee0c128cfe22ec5d642e217f70b
+  DeleteUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/delete.handler
+      Policies: AmazonDynamoDBFullAccess
+      Events:
+        GetUser:
+          Type: Api
+          Properties:
+            Method: DELETE
+            Path: /users/{userId}
+      CodeUri: s3://sam-learning/5f603ee0c128cfe22ec5d642e217f70b

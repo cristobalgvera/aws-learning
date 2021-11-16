@@ -1,0 +1,14 @@
+{
+  "name": "sam-rest-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "package": "sam package --template-file template.yml --output-template-file sam.yml --s3-bucket sam-learning",
+    "deploy": "sam deploy sam.yml --stack-name sam-rest-api --capabilities CAPABILITY_IAM --s3-bucket sam-learning",
+    "pack-deploy": "yarn package & yarn deploy"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1028.0"
+  }
+}

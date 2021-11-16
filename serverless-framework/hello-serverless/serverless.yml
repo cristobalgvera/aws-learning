@@ -1,0 +1,54 @@
+org: cristobalgvera
+app: hello-serverless
+service: hello-serverless
+
+frameworkVersion: '2 || 3'
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  region: sa-east-1
+  runtime: nodejs14.x
+  stage: dev
+  lambdaHashingVersion: 20201221
+  memorySize: 128
+  timeout: 3
+
+functions:
+  hello:
+    handler: handler.hello 
+      
+  sum:
+    handler: functions/math/sum/handler.sum
+    events:
+      - http:
+          path: math/sum
+          method: POST 
+          cors: true
+
+  bm-sum:
+    handler: functions/math/sum/bm-handler.sum
+    events:
+      - http:
+          path: math/bm-sum
+          method: POST 
+          integration: lambda
+          request:
+            template:
+              application/json: >
+                #set($inputRoot = $input.path('$'))
+                {
+                  "num1": $inputRoot.input.num1,
+                  "num2": $inputRoot.input.num2
+                }
+          response:
+            headers:
+              Access-Control-Allow-Origin: "'*'"
+              Content-Type: "'application/json'"
+            template: >
+              #set($inputRoot = $input.path('$'))
+              {
+                "result": $inputRoot
+              }
