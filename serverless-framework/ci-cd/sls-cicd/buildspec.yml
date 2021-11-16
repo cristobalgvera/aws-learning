@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Installing Serverless Framework globally"
+      - npm install -g serverless --unsafe-perm
+  pre_build:
+    commands:
+      - echo Installing source NPM dependencies
+      - npm install
+  build:
+    commands:
+      - echo Building the project on `date`
+      - echo Deploying with Serverless Framework
+      - sls deploy --verbose -s ${ENV_NAME}
+  post_build:
+    commands:
+      - echo Deployment completed on `date`

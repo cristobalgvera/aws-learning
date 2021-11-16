@@ -1,0 +1,26 @@
+org: cristobalgvera
+app: sls-cicd
+service: ci-cd
+
+frameworkVersion: '2 || 3'
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  region: sa-east-1
+  stage: dev
+  runtime: nodejs14.x
+  memorySize: 128
+  timeout: 3
+  lambdaHashingVersion: 20201221
+
+functions:
+  logger:
+    handler: src/logger/handler.logger
+    events:
+      - http:
+          path: /logger
+          method: GET 
+          cors: true
